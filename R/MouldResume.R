@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' MouldResumeUI()
-MouldResumeUI <- function(tabTitle ='摸具履历',
+MouldResumeUI <- function(tabTitle ='模具履历',
                      colTitles =c('操作区域','操作区域','显示区域'),
                      widthRates =c(6,6,12),
                      func_left = MouldResumeUI_left,
@@ -42,15 +42,24 @@ MouldResumeUI_left <- function() {
 
 
   res <- tagList(
-    #shiny::actionButton(inputId = 'btn_shiny',label = 'shiny按纽'),
-    #shiny::h5('按纽在shiny中可以作为计数器'),
-    #shiny::uiOutput(outputId = 'ui_shinyButton'),
-    #shiny::h5('每秒钟更新一次按纽显示文本'),
-    #shiny::actionButton(inputId = 'btn_shinyWidgets',label = '按纽显示当前时间'),
-    tsui::uiTemplate(templateName = '博宇翔鹰-模具履历_模板表'),
-    tsui::mdl_file(id='file_MouldResume',label='上传手工调整单'),
-    shiny::actionButton(inputId ='btn_MouldResume_pre',label ='预览文件内容'),
-    shiny::actionButton(inputId ='btn_MouldResume_upload',label ='上传文件'),
+    tsui::uiTemplate(templateName = '模具履历信息表'),
+    tsui::mdl_file(id='file_MouldResume',label='上传模具履历信息表'),
+    tsui::layout_2C(x =shiny::actionButton(inputId ='btn_MouldResume_pre',label ='预览文件内容'),
+                    y=shiny::actionButton(inputId ='btn_MouldResume_upload',label ='上传文件')),
+     tsui::mdl_text2(id = 'text_MouldResume_mould_fbillno',label = '请输入模具编号'),
+     shiny::actionButton(inputId ='btn_MouldResume_mould_fbillno_view',label ='查询模具信息'),
+    tsui::mdl_text2(id = 'text_MouldResume_mould_fbillno_delete',label = '需删除模具编号'),
+     shiny::actionButton(inputId ='btn_MouldResume_mould_fbillno_delete',label ='按模具编号删除数据') ,
+
+
+    tsui::layout_2C(x = tsui::mdl_text2(id = 'text_MouldResume_erp_fyear',label = '请输入年份'),
+                    y = tsui::mdl_text2(id = 'text_MouldResume_erp_fmonth',label = '请输入月份')
+                    ),
+    shiny::actionButton(inputId ='btn_MouldResume_product_get',label ='按年月获取erp生产数据')
+
+
+
+
   )
   return(res)
 
@@ -67,18 +76,28 @@ MouldResumeUI_left <- function() {
 MouldResumeUI_right <- function() {
   res <- tagList(
 
+    tsui::layout_2C(x = tsui::mdl_text2(id = 'text_MouldResume_dms_fyear',label = '请输入年份'),
+                    y = tsui::mdl_text2(id = 'text_MouldResume_dms_fmonth',label = '请输入月份')),
+
+    tsui::layout_2C(x = shiny::actionButton(inputId ='btn_MouldResume_get',label ='按年月获取模具生产数据'),
+                    y = tsui::mdl_download_button(id = 'btn_MouldResume_get_download',label = '下载模具生产数据')),
+
+    tsui::mdl_file(id='file_MouldResume_update',label='模具履历生产信息表'),
+    tsui::layout_2C(x =shiny::actionButton(inputId ='btn_MouldResume_preview',label ='预览文件内容'),
+                    y=shiny::actionButton(inputId ='btn_MouldResume_update_upload',label ='上传文件')),
+
 
     tsui::mdl_text2(id = "text_MouldResume_FMoldNumber",label =" 查询的模具编号"),
-    tsui::mdl_text2(id = "text_MouldResume_FMoldNumber_delete",label ="删除模具的编号" ),
-    tsui::mdl_date(id="text_MouldResume_FOutboundDate_delete",label =" 删除模具出库的日期"),
+    tsui::layout_2C(x =   shiny::actionButton(inputId ='btn_MouldResume_view',label ='查询数据'),
+                    y = tsui::mdl_download_button(id = 'btn_download',label = '下载数据')),
+
+    tsui::layout_2C(x =tsui::mdl_text2(id = "text_MouldResume_FMoldNumber_delete",label ="删除模具的编号" ),
+                    y = tsui::mdl_date(id="text_MouldResume_FOutboundDate_delete",label =" 删除模具出库的日期")),
+    shiny::actionButton(inputId ='btn_MouldResume_delete',label ='删除数据')
 
 
-    shiny::actionButton(inputId ='btn_MouldResume_view',label ='查询数据'),
 
 
-    shiny::actionButton(inputId ='btn_MouldResume_delete',label ='删除数据'),
-
-    tsui::mdl_download_button(id = 'btn_download',label = '下载查询的数据'),
 
 
   )

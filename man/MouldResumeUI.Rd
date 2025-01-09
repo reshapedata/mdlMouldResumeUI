@@ -5,7 +5,7 @@
 \title{按纽生成生成器界面}
 \usage{
 MouldResumeUI(
-  tabTitle = "摸具履历",
+  tabTitle = "模具履历",
   colTitles = c("操作区域", "操作区域", "显示区域"),
   widthRates = c(6, 6, 12),
   func_left = MouldResumeUI_left,
